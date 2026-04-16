@@ -28,19 +28,6 @@ API REST para simular investimentos, validar produto elegivel e salvar historico
 O seed e automatico e acontece no startup em `SeedDataService`.
 Se a tabela `produtos` estiver vazia, os produtos padrao sao inseridos.
 
-## Scripts (PowerShell)
-
-- `scripts/01-criar-estrutura.ps1`: cria as pastas base do projeto
-- `scripts/02-validar-e-rodar.ps1`: executa testes e sobe em dev mode
-
-## Como rodar (Windows / PowerShell)
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\scripts\01-criar-estrutura.ps1
-.\scripts\02-validar-e-rodar.ps1
-```
-
 ## Testes
 
 ```powershell

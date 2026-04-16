@@ -46,15 +46,14 @@ public class SeedDataService {
             String valorMax
     ) {
         Produto produto = new Produto();
-        produto.nome = nome;
-        produto.tipoProduto = tipoProduto;
-        produto.rentabilidadeAnual = new BigDecimal(rentabilidade);
-        produto.risco = risco;
-        produto.prazoMinMeses = prazoMin;
-        produto.prazoMaxMeses = prazoMax;
-        produto.valorMin = new BigDecimal(valorMin);
-        produto.valorMax = new BigDecimal(valorMax);
+        produto.setNome(nome);
+        produto.setTipoProduto(tipoProduto);
+        produto.setRentabilidadeAnual(new BigDecimal(rentabilidade));
+        produto.setRisco(risco);
+        produto.setPrazoMinMeses(prazoMin);
+        produto.setPrazoMaxMeses(prazoMax);
+        produto.setValorMin(new BigDecimal(valorMin));
+        produto.setValorMax(new BigDecimal(valorMax));
         return produto;
     }
 }
-

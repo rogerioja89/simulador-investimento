@@ -33,30 +33,30 @@ public class SimulacaoServiceImpl implements SimulacaoService {
     @Transactional
     public SimulacaoResponse criarSimulacao(SimulacaoRequest request) {
         Produto produtoElegivel = produtoElegibilidadeService.selecionarProdutoElegivel(
-                request.tipoProduto,
-                request.valor,
-                request.prazoMeses
+                request.getTipoProduto(),
+                request.getValor(),
+                request.getPrazoMeses()
         );
 
         BigDecimal valorFinal = calculoFinanceiroService.calcularValorFinal(
-                request.valor,
-                produtoElegivel.rentabilidadeAnual,
-                request.prazoMeses
+                request.getValor(),
+                produtoElegivel.getRentabilidadeAnual(),
+                request.getPrazoMeses()
         );
 
         OffsetDateTime dataSimulacao = OffsetDateTime.now(ZoneOffset.UTC);
         Simulacao entidade = new Simulacao();
-        entidade.clienteId = request.clienteId;
-        entidade.produtoNome = produtoElegivel.nome;
-        entidade.tipoProduto = produtoElegivel.tipoProduto;
-        entidade.valorInvestido = request.valor;
-        entidade.prazoMeses = request.prazoMeses;
-        entidade.rentabilidadeAplicada = produtoElegivel.rentabilidadeAnual;
-        entidade.valorFinal = valorFinal;
-        entidade.dataSimulacao = dataSimulacao;
+        entidade.setClienteId(request.getClienteId());
+        entidade.setProdutoNome(produtoElegivel.getNome());
+        entidade.setTipoProduto(produtoElegivel.getTipoProduto());
+        entidade.setValorInvestido(request.getValor());
+        entidade.setPrazoMeses(request.getPrazoMeses());
+        entidade.setRentabilidadeAplicada(produtoElegivel.getRentabilidadeAnual());
+        entidade.setValorFinal(valorFinal);
+        entidade.setDataSimulacao(dataSimulacao);
         simulacaoRepository.persist(entidade);
 
-        return mapearSimulacaoResponse(produtoElegivel, valorFinal, request.prazoMeses, dataSimulacao);
+        return mapearSimulacaoResponse(produtoElegivel, valorFinal, request.getPrazoMeses(), dataSimulacao);
     }
 
     @Override
@@ -69,34 +69,33 @@ public class SimulacaoServiceImpl implements SimulacaoService {
 
     private SimulacaoResponse mapearSimulacaoResponse(Produto produto, BigDecimal valorFinal, Integer prazoMeses, OffsetDateTime dataSimulacao) {
         ProdutoValidadoResponse produtoValidado = new ProdutoValidadoResponse();
-        produtoValidado.id = produto.id;
-        produtoValidado.nome = produto.nome;
-        produtoValidado.tipo = produto.tipoProduto;
-        produtoValidado.rentabilidade = produto.rentabilidadeAnual;
-        produtoValidado.risco = produto.risco;
+        produtoValidado.setId(produto.getId());
+        produtoValidado.setNome(produto.getNome());
+        produtoValidado.setTipo(produto.getTipoProduto());
+        produtoValidado.setRentabilidade(produto.getRentabilidadeAnual());
+        produtoValidado.setRisco(produto.getRisco());
 
         ResultadoSimulacaoResponse resultado = new ResultadoSimulacaoResponse();
-        resultado.valorFinal = valorFinal;
-        resultado.prazoMeses = prazoMeses;
+        resultado.setValorFinal(valorFinal);
+        resultado.setPrazoMeses(prazoMeses);
 
         SimulacaoResponse response = new SimulacaoResponse();
-        response.produtoValidado = produtoValidado;
-        response.resultadoSimulacao = resultado;
-        response.dataSimulacao = dataSimulacao;
+        response.setProdutoValidado(produtoValidado);
+        response.setResultadoSimulacao(resultado);
+        response.setDataSimulacao(dataSimulacao);
         return response;
     }
 
     private HistoricoSimulacaoResponse mapearHistorico(Simulacao simulacao) {
         HistoricoSimulacaoResponse response = new HistoricoSimulacaoResponse();
-        response.id = simulacao.id;
-        response.clienteId = simulacao.clienteId;
-        response.produto = simulacao.produtoNome;
-        response.tipoProduto = simulacao.tipoProduto;
-        response.valorInvestido = simulacao.valorInvestido;
-        response.valorFinal = simulacao.valorFinal;
-        response.prazoMeses = simulacao.prazoMeses;
-        response.dataSimulacao = simulacao.dataSimulacao;
+        response.setId(simulacao.getId());
+        response.setClienteId(simulacao.getClienteId());
+        response.setProduto(simulacao.getProdutoNome());
+        response.setTipoProduto(simulacao.getTipoProduto());
+        response.setValorInvestido(simulacao.getValorInvestido());
+        response.setValorFinal(simulacao.getValorFinal());
+        response.setPrazoMeses(simulacao.getPrazoMeses());
+        response.setDataSimulacao(simulacao.getDataSimulacao());
         return response;
     }
 }
-
