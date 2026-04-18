@@ -14,13 +14,7 @@ public class CalculoFinanceiroServiceImpl implements CalculoFinanceiroService {
     @Override
     public BigDecimal calcularValorFinal(BigDecimal valorInvestido, BigDecimal rentabilidadeAnual, Integer prazoMeses) {
         BigDecimal taxaMensal = rentabilidadeAnual.divide(BigDecimal.valueOf(12), MC);
-        BigDecimal base = BigDecimal.ONE.add(taxaMensal, MC);
-
-        BigDecimal fator = BigDecimal.ONE;
-        for (int i = 0; i < prazoMeses; i++) {
-            fator = fator.multiply(base, MC);
-        }
-
+        BigDecimal fator = BigDecimal.ONE.add(taxaMensal, MC).pow(prazoMeses, MC);
         return valorInvestido.multiply(fator, MC).setScale(2, RoundingMode.HALF_UP);
     }
 }

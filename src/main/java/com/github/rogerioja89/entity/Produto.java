@@ -8,11 +8,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "produtos")
+@Data
 public class Produto {
 
     @Id
@@ -44,101 +46,4 @@ public class Produto {
 
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal valorMax;
-
-    public Produto() {
-    }
-
-    public Produto(
-            Long id,
-            String nome,
-            TipoProduto tipoProduto,
-            BigDecimal rentabilidadeAnual,
-            Risco risco,
-            Integer prazoMinMeses,
-            Integer prazoMaxMeses,
-            BigDecimal valorMin,
-            BigDecimal valorMax
-    ) {
-        this.id = id;
-        this.nome = nome;
-        this.tipoProduto = tipoProduto;
-        this.rentabilidadeAnual = rentabilidadeAnual;
-        this.risco = risco;
-        this.prazoMinMeses = prazoMinMeses;
-        this.prazoMaxMeses = prazoMaxMeses;
-        this.valorMin = valorMin;
-        this.valorMax = valorMax;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public TipoProduto getTipoProduto() {
-        return tipoProduto;
-    }
-
-    public void setTipoProduto(TipoProduto tipoProduto) {
-        this.tipoProduto = tipoProduto;
-    }
-
-    public BigDecimal getRentabilidadeAnual() {
-        return rentabilidadeAnual;
-    }
-
-    public void setRentabilidadeAnual(BigDecimal rentabilidadeAnual) {
-        this.rentabilidadeAnual = rentabilidadeAnual;
-    }
-
-    public Risco getRisco() {
-        return risco;
-    }
-
-    public void setRisco(Risco risco) {
-        this.risco = risco;
-    }
-
-    public Integer getPrazoMinMeses() {
-        return prazoMinMeses;
-    }
-
-    public void setPrazoMinMeses(Integer prazoMinMeses) {
-        this.prazoMinMeses = prazoMinMeses;
-    }
-
-    public Integer getPrazoMaxMeses() {
-        return prazoMaxMeses;
-    }
-
-    public void setPrazoMaxMeses(Integer prazoMaxMeses) {
-        this.prazoMaxMeses = prazoMaxMeses;
-    }
-
-    public BigDecimal getValorMin() {
-        return valorMin;
-    }
-
-    public void setValorMin(BigDecimal valorMin) {
-        this.valorMin = valorMin;
-    }
-
-    public BigDecimal getValorMax() {
-        return valorMax;
-    }
-
-    public void setValorMax(BigDecimal valorMax) {
-        this.valorMax = valorMax;
-    }
 }

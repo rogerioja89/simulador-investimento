@@ -8,12 +8,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "simulacoes")
+@Data
 public class Simulacao {
 
     @Id
@@ -44,101 +46,4 @@ public class Simulacao {
 
     @Column(nullable = false)
     private OffsetDateTime dataSimulacao;
-
-    public Simulacao() {
-    }
-
-    public Simulacao(
-            Long id,
-            Long clienteId,
-            String produtoNome,
-            TipoProduto tipoProduto,
-            BigDecimal valorInvestido,
-            Integer prazoMeses,
-            BigDecimal rentabilidadeAplicada,
-            BigDecimal valorFinal,
-            OffsetDateTime dataSimulacao
-    ) {
-        this.id = id;
-        this.clienteId = clienteId;
-        this.produtoNome = produtoNome;
-        this.tipoProduto = tipoProduto;
-        this.valorInvestido = valorInvestido;
-        this.prazoMeses = prazoMeses;
-        this.rentabilidadeAplicada = rentabilidadeAplicada;
-        this.valorFinal = valorFinal;
-        this.dataSimulacao = dataSimulacao;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getClienteId() {
-        return clienteId;
-    }
-
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
-    }
-
-    public String getProdutoNome() {
-        return produtoNome;
-    }
-
-    public void setProdutoNome(String produtoNome) {
-        this.produtoNome = produtoNome;
-    }
-
-    public TipoProduto getTipoProduto() {
-        return tipoProduto;
-    }
-
-    public void setTipoProduto(TipoProduto tipoProduto) {
-        this.tipoProduto = tipoProduto;
-    }
-
-    public BigDecimal getValorInvestido() {
-        return valorInvestido;
-    }
-
-    public void setValorInvestido(BigDecimal valorInvestido) {
-        this.valorInvestido = valorInvestido;
-    }
-
-    public Integer getPrazoMeses() {
-        return prazoMeses;
-    }
-
-    public void setPrazoMeses(Integer prazoMeses) {
-        this.prazoMeses = prazoMeses;
-    }
-
-    public BigDecimal getRentabilidadeAplicada() {
-        return rentabilidadeAplicada;
-    }
-
-    public void setRentabilidadeAplicada(BigDecimal rentabilidadeAplicada) {
-        this.rentabilidadeAplicada = rentabilidadeAplicada;
-    }
-
-    public BigDecimal getValorFinal() {
-        return valorFinal;
-    }
-
-    public void setValorFinal(BigDecimal valorFinal) {
-        this.valorFinal = valorFinal;
-    }
-
-    public OffsetDateTime getDataSimulacao() {
-        return dataSimulacao;
-    }
-
-    public void setDataSimulacao(OffsetDateTime dataSimulacao) {
-        this.dataSimulacao = dataSimulacao;
-    }
 }

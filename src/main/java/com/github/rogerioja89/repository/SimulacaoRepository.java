@@ -13,5 +13,3 @@ public class SimulacaoRepository implements PanacheRepository<Simulacao> {
         return find("clienteId = ?1 order by dataSimulacao desc", clienteId).list();
     }
 }
-
-

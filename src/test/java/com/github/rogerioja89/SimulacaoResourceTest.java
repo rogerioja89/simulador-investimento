@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -74,7 +75,18 @@ class SimulacaoResourceTest {
                 .when()
                 .post("/simulacoes")
                 .then()
-                .statusCode(422);
+                .statusCode(422)
+                .body("message", equalTo("Nenhum produto elegivel para os parametros informados."));
+    }
+
+    @Test
+    void deveRetornarMensagemQuandoClienteIdInvalidoNoHistorico() {
+        given()
+                .when()
+                .get("/simulacoes")
+                .then()
+                .statusCode(400)
+                .body("message", equalTo("O parametro clienteId deve ser informado e positivo."));
     }
 }
 
