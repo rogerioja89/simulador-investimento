@@ -41,4 +41,3 @@ public class TelemetriaServiceImpl implements TelemetriaService {
         return response;
     }
 }
-

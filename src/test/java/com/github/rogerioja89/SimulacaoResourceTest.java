@@ -18,6 +18,8 @@ class SimulacaoResourceTest {
 
     @Test
     void deveCriarSimulacaoComSucesso() {
+        String token = obterToken();
+
         Map<String, Object> payload = new HashMap<>();
         payload.put("clienteId", 123);
         payload.put("valor", new BigDecimal("10000.00"));
@@ -26,6 +28,7 @@ class SimulacaoResourceTest {
 
         given()
                 .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + token)
                 .body(payload)
                 .when()
                 .post("/simulacoes")
@@ -38,6 +41,8 @@ class SimulacaoResourceTest {
 
     @Test
     void deveRetornarHistoricoPorClienteId() {
+        String token = obterToken();
+
         Map<String, Object> payload = new HashMap<>();
         payload.put("clienteId", 456);
         payload.put("valor", new BigDecimal("12000.00"));
@@ -46,6 +51,7 @@ class SimulacaoResourceTest {
 
         given()
                 .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + token)
                 .body(payload)
                 .when()
                 .post("/simulacoes")
@@ -53,6 +59,7 @@ class SimulacaoResourceTest {
                 .statusCode(201);
 
         given()
+                .header("Authorization", "Bearer " + token)
                 .queryParam("clienteId", 456)
                 .when()
                 .get("/simulacoes")
@@ -63,6 +70,8 @@ class SimulacaoResourceTest {
 
     @Test
     void deveRetornar422QuandoNaoHouverProdutoElegivel() {
+        String token = obterToken();
+
         Map<String, Object> payload = new HashMap<>();
         payload.put("clienteId", 999);
         payload.put("valor", new BigDecimal("100.00"));
@@ -71,6 +80,7 @@ class SimulacaoResourceTest {
 
         given()
                 .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + token)
                 .body(payload)
                 .when()
                 .post("/simulacoes")
@@ -81,12 +91,30 @@ class SimulacaoResourceTest {
 
     @Test
     void deveRetornarMensagemQuandoClienteIdInvalidoNoHistorico() {
+        String token = obterToken();
+
         given()
+                .header("Authorization", "Bearer " + token)
                 .when()
                 .get("/simulacoes")
                 .then()
                 .statusCode(400)
                 .body("message", equalTo("O parametro clienteId deve ser informado e positivo."));
     }
-}
 
+    private String obterToken() {
+        Map<String, Object> loginPayload = new HashMap<>();
+        loginPayload.put("username", "rogerio");
+        loginPayload.put("password", "123456");
+
+        return given()
+                .contentType(ContentType.JSON)
+                .body(loginPayload)
+                .when()
+                .post("/auth/login")
+                .then()
+                .statusCode(200)
+                .extract()
+                .path("token");
+    }
+}

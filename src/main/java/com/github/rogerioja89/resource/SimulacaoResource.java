@@ -4,6 +4,7 @@ import com.github.rogerioja89.dto.HistoricoSimulacaoResponse;
 import com.github.rogerioja89.dto.SimulacaoRequest;
 import com.github.rogerioja89.dto.SimulacaoResponse;
 import com.github.rogerioja89.service.SimulacaoService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.BadRequestException;
@@ -21,6 +22,7 @@ import java.util.List;
 @Path("/simulacoes")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@RolesAllowed("USER")
 public class SimulacaoResource {
 
     @Inject
@@ -40,4 +42,3 @@ public class SimulacaoResource {
         return simulacaoService.buscarHistorico(clienteId);
     }
 }
-
